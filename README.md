@@ -1,6 +1,6 @@
 # HIG Driven promotional website
 
-Private website source for the HIG Driven product page. This project is intentionally separate from the public [`HIG-Driven` skill repository](https://github.com/dzakwanfadhlullah/HIG-Driven).
+Website source for the HIG Driven product page. This project is intentionally separate from the public [`HIG-Driven` skill repository](https://github.com/dzakwanfadhlullah/HIG-Driven).
 
 ## Stack
 
@@ -37,7 +37,7 @@ HIG Driven is used as the implementation lens rather than a visual skin. The pag
 
 ## Keeping source private while deploying to Vercel
 
-This folder should remain in a private repository or be deployed directly with the Vercel CLI. Do not add it to the public `HIG-Driven` skill repository.
+This folder is separate from the public `HIG-Driven` skill repository. If the website source should be private, make this GitHub repository private or deploy directly from this local folder with the Vercel CLI. Do not add it to the public skill repository.
 
 Recommended options:
 
@@ -58,4 +58,4 @@ The source repository can remain private, but browser-delivered HTML, CSS, JavaS
 
 ## License
 
-The website source is private project code. The public HIG Driven package and skill remain MIT licensed in the separate product repository.
+The website source and the public HIG Driven package are separate projects. The public package and skill remain MIT licensed in the separate product repository.
