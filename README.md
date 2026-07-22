@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HIG Driven promotional website
 
-## Getting Started
+Private website source for the HIG Driven product page. This project is intentionally separate from the public [`HIG-Driven` skill repository](https://github.com/dzakwanfadhlullah/HIG-Driven).
 
-First, run the development server:
+## Stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Tailwind CSS 4 for the toolchain, with a tokenized CSS layer for the Figma-led visual system
+- Server Components by default
+- One small Client Component for the installation command copy action
+- Vercel-compatible deployment
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Production checks:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+npm run start
+```
 
-## Learn More
+## Design source and implementation intent
 
-To learn more about Next.js, take a look at the following resources:
+The page follows the structure and visual language extracted from the private Figma reference: floating pill navigation, Geist-led typography, warm surfaces, red accent, large section anchors, proof-led storytelling, dark workflow/install sections, FAQ disclosure, and a full footer navigation.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+HIG Driven is used as the implementation lens rather than a visual skin. The page uses semantic landmarks, real links, native disclosure, visible focus, responsive reflow, reduced-motion fallback, text alternatives, and copy that does not invent customer claims.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Keeping source private while deploying to Vercel
 
-## Deploy on Vercel
+This folder should remain in a private repository or be deployed directly with the Vercel CLI. Do not add it to the public `HIG-Driven` skill repository.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Recommended options:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Create a private GitHub repository and connect that repository to a Vercel project.
+2. Or deploy from this local folder with `vercel` / `vercel --prod` after authenticating the Vercel CLI.
+
+Vercel environment variables belong in the Vercel project settings or `.env.local` (which is ignored). Never put Figma tokens, API keys, or private service credentials in source or variables prefixed with `NEXT_PUBLIC_`. Server-side variables can be read by Server Components or route handlers without being sent to the browser.
+
+The source repository can remain private, but browser-delivered HTML, CSS, JavaScript, fonts, and public images are inherently inspectable by visitors. No frontend deployment can make those client assets secret.
+
+## Security checklist
+
+- Revoke any Figma personal access token shared in chat and create a replacement.
+- Keep `.env*` files out of Git.
+- Use `NEXT_PUBLIC_` only for values that are intentionally public.
+- Keep private APIs behind a server route or external service.
+- Review Vercel project members and deployment protection before sharing previews.
+
+## License
+
+The website source is private project code. The public HIG Driven package and skill remain MIT licensed in the separate product repository.
