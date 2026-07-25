@@ -1,5 +1,7 @@
 import Image from "next/image";
+import { AnimatedFaq } from "@/components/animated-faq";
 import { CopyCommand } from "@/components/copy-command";
+import { MotionExperience } from "@/components/motion-experience";
 
 const installCommand = "npm install hig-driven && npx hig-driven install";
 
@@ -70,7 +72,7 @@ const faqs = [
     "Does it guarantee HIG compliance?",
     "No. HIG Driven does not issue compliance claims. It explains which principles and checks a result satisfies, what evidence was inspected, and what still requires verification.",
   ],
-];
+] as const;
 
 function ArrowIcon() {
   return (
@@ -114,7 +116,7 @@ export default function Home() {
         </nav>
       </header>
 
-      <main id="main-content">
+      <MotionExperience id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
           <div className="hero-inner container">
             <a className="announcement" href="#install">
@@ -123,10 +125,15 @@ export default function Home() {
               <ArrowIcon />
             </a>
 
-            <h1 id="hero-title">
-              Build interfaces people
-              <br />
-              <em>understand</em>—not just admire.
+            <h1 id="hero-title" aria-label="Build interfaces people understand—not just admire.">
+              <span className="hero-title-clip" aria-hidden="true">
+                <span className="hero-title-line">Build interfaces people</span>
+              </span>
+              <span className="hero-title-clip" aria-hidden="true">
+                <span className="hero-title-line">
+                  <em>understand</em>—not just admire.
+                </span>
+              </span>
             </h1>
             <p className="hero-copy">
               A Codex skill for planning, building, refactoring, and auditing
@@ -309,23 +316,28 @@ export default function Home() {
                 <strong>Where can I go next?</strong>
               </div>
             </div>
-            <ol className="workflow-list">
-              {workflow.map(([title, body], index) => (
-                <li key={title}>
-                  <span className="step-number">0{index + 1}</span>
-                  <div>
-                    <h3>{title}</h3>
-                    <p>{body}</p>
-                  </div>
-                  <span className="step-output">
-                    {index === 0 && "Purpose"}
-                    {index === 1 && "Architecture"}
-                    {index === 2 && "Implementation"}
-                    {index === 3 && "Evidence"}
-                  </span>
-                </li>
-              ))}
-            </ol>
+            <div className="workflow-list-shell">
+              <span className="workflow-progress" aria-hidden="true">
+                <span />
+              </span>
+              <ol className="workflow-list">
+                {workflow.map(([title, body], index) => (
+                  <li key={title}>
+                    <span className="step-number">0{index + 1}</span>
+                    <div>
+                      <h3>{title}</h3>
+                      <p>{body}</p>
+                    </div>
+                    <span className="step-output">
+                      {index === 0 && "Purpose"}
+                      {index === 1 && "Architecture"}
+                      {index === 2 && "Implementation"}
+                      {index === 3 && "Evidence"}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
 
@@ -368,19 +380,19 @@ export default function Home() {
             </div>
             <div className="stats-grid">
               <article>
-                <strong>197</strong>
+                <strong data-count="197">197</strong>
                 <span>documents reviewed</span>
               </article>
               <article>
-                <strong>176</strong>
+                <strong data-count="176">176</strong>
                 <span>HIG pages</span>
               </article>
               <article>
-                <strong>11</strong>
+                <strong data-count="11">11</strong>
                 <span>distilled references</span>
               </article>
               <article>
-                <strong>3</strong>
+                <strong data-count="3">3</strong>
                 <span>forward-tested modes</span>
               </article>
             </div>
@@ -488,17 +500,7 @@ export default function Home() {
                 HIG Driven is a design copilot, not a UI kit, certification, or Apple visual generator.
               </p>
             </div>
-            <div className="faq-list">
-              {faqs.map(([question, answer]) => (
-                <details key={question}>
-                  <summary>
-                    <span>{question}</span>
-                    <span className="faq-plus" aria-hidden="true" />
-                  </summary>
-                  <p>{answer}</p>
-                </details>
-              ))}
-            </div>
+            <AnimatedFaq items={faqs} />
           </div>
         </section>
 
@@ -506,13 +508,20 @@ export default function Home() {
           <div className="final-glow" />
           <div className="container final-content">
             <span className="section-label light-label">Start with the human outcome</span>
-            <h2 id="final-title">Build with intent.<br />Audit what matters.</h2>
+            <h2 id="final-title" aria-label="Build with intent. Audit what matters.">
+              <span className="final-title-clip" aria-hidden="true">
+                <span className="final-title-line">Build with intent.</span>
+              </span>
+              <span className="final-title-clip" aria-hidden="true">
+                <span className="final-title-line">Audit what matters.</span>
+              </span>
+            </h2>
             <a className="button button-red" href="#install">
               Install HIG Driven <ArrowIcon />
             </a>
           </div>
         </section>
-      </main>
+      </MotionExperience>
 
       <footer className="site-footer">
         <div className="container footer-grid">

@@ -38,6 +38,7 @@ html {
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-geist-sans), Arial, sans-serif;
@@ -133,6 +134,20 @@ svg {
     inset 0 1px 0 white;
   backdrop-filter: blur(18px) saturate(140%);
   pointer-events: auto;
+  transition:
+    width 320ms cubic-bezier(.22, 1, .36, 1),
+    min-height 320ms cubic-bezier(.22, 1, .36, 1),
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.nav-shell.is-scrolled {
+  width: min(calc(100% - 32px), 574px);
+  min-height: 54px;
+  background: rgb(255 255 255 / 93%);
+  box-shadow:
+    0 16px 36px rgb(18 17 17 / 13%),
+    inset 0 1px 0 white;
 }
 
 .brand {
@@ -177,12 +192,36 @@ svg {
 
 .nav-links a,
 .footer-links a {
+  position: relative;
   transition: color 160ms ease;
 }
 
 .nav-links a:hover,
 .footer-links a:hover {
   color: var(--red);
+}
+
+.nav-links a::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--red);
+  content: "";
+  opacity: 0;
+  transform: scaleX(.35);
+  transition: opacity 180ms ease, transform 240ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.nav-links a.is-active {
+  color: var(--ink);
+}
+
+.nav-links a.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .nav-cta {
@@ -281,6 +320,18 @@ svg {
   font-weight: 520;
   line-height: 0.97;
   letter-spacing: -0.052em;
+}
+
+.hero-title-clip,
+.final-title-clip {
+  display: block;
+  overflow: hidden;
+}
+
+.hero-title-line,
+.final-title-line {
+  display: block;
+  transform-origin: left center;
 }
 
 .hero h1 em {
@@ -725,6 +776,16 @@ svg {
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--paper);
+  transition:
+    transform 320ms cubic-bezier(.22, 1, .36, 1),
+    border-color 220ms ease,
+    box-shadow 320ms ease;
+}
+
+.mode-card:hover {
+  border-color: rgb(18 17 17 / 17%);
+  box-shadow: 0 22px 48px rgb(18 17 17 / 9%);
+  transform: translateY(-4px);
 }
 
 .mode-meta {
@@ -762,10 +823,18 @@ svg {
   background: white;
   box-shadow: 0 20px 36px rgb(18 17 17 / 12%);
   transform: rotate(-3deg);
+  transition:
+    transform 420ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 320ms ease;
 }
 
 .mode-build .mini-window { transform: rotate(3deg); }
 .mode-audit .mini-window { transform: rotate(-1deg); }
+
+.mode-card:hover .mini-window {
+  box-shadow: 0 28px 48px rgb(18 17 17 / 15%);
+  transform: rotate(0) translateY(-4px);
+}
 
 .mini-label {
   color: var(--red-dark);
@@ -856,6 +925,40 @@ svg {
   border-top: 1px solid rgb(255 255 255 / 8%);
   font-size: 17px;
   font-weight: 520;
+  color: white;
+  transition: color 240ms ease, transform 320ms cubic-bezier(.22, 1, .36, 1);
+}
+
+main[data-motion="ready"] .orientation-card strong {
+  color: #797980;
+}
+
+.orientation-card strong.is-active {
+  color: white;
+  transform: translateX(8px);
+}
+
+.workflow-list-shell {
+  position: relative;
+}
+
+.workflow-progress {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 6%);
+}
+
+.workflow-progress > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--red), #ff7777);
+  box-shadow: 0 0 18px rgb(255 46 46 / 55%);
+  transform-origin: top center;
 }
 
 .workflow-list {
@@ -871,6 +974,19 @@ svg {
   min-height: 190px;
   padding-block: 38px;
   border-top: 1px solid rgb(255 255 255 / 12%);
+  opacity: 1;
+  transition:
+    opacity 280ms ease,
+    transform 360ms cubic-bezier(.22, 1, .36, 1);
+}
+
+main[data-motion="ready"] .workflow-list li {
+  opacity: .48;
+}
+
+.workflow-list li.is-active {
+  opacity: 1;
+  transform: translateX(10px);
 }
 
 .workflow-list li:last-child {
@@ -934,6 +1050,17 @@ svg {
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   background: rgb(255 255 255 / 22%);
+  transition:
+    background 220ms ease,
+    transform 320ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 320ms ease;
+}
+
+.principle-grid article:hover {
+  z-index: 1;
+  background: rgb(255 255 255 / 72%);
+  box-shadow: 0 24px 50px rgb(18 17 17 / 8%);
+  transform: translateY(-3px);
 }
 
 .principle-index {
@@ -960,6 +1087,11 @@ svg {
   border: 2px solid var(--red);
   border-radius: 50%;
   box-shadow: 8px 0 0 -5px white, 8px 0 0 -3px var(--ink);
+  transition: transform 360ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.principle-grid article:hover .principle-icon span {
+  transform: rotate(180deg);
 }
 
 .principle-grid h3 {
@@ -995,6 +1127,16 @@ svg {
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--paper);
+  transition:
+    transform 300ms cubic-bezier(.22, 1, .36, 1),
+    box-shadow 300ms ease,
+    border-color 220ms ease;
+}
+
+.stats-grid article:hover {
+  border-color: rgb(18 17 17 / 17%);
+  box-shadow: 0 18px 38px rgb(18 17 17 / 8%);
+  transform: translateY(-3px);
 }
 
 .stats-grid strong {
@@ -1054,6 +1196,16 @@ svg {
   border-radius: 999px;
   background: white;
   font-size: 11px;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.reference-pills span:hover {
+  border-color: rgb(255 46 46 / 35%);
+  color: var(--red-dark);
+  transform: translateY(-2px);
 }
 
 .install-section {
@@ -1095,6 +1247,22 @@ svg {
   color: #d6d6da;
   cursor: pointer;
   font-size: 10px;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.copy-button:hover {
+  border-color: rgb(255 255 255 / 23%);
+  background: #29292e;
+}
+
+.copy-label {
+  display: inline-grid;
+  min-width: 38px;
+  overflow: hidden;
+}
+
+.copy-label > span {
+  grid-area: 1 / 1;
 }
 
 .copy-button svg {
@@ -1185,27 +1353,34 @@ svg {
   color: #9b9ba2;
 }
 
-.faq-list details {
+.faq-item {
   border-top: 1px solid rgb(255 255 255 / 12%);
 }
 
-.faq-list details:last-child {
+.faq-item:last-child {
   border-bottom: 1px solid rgb(255 255 255 / 12%);
 }
 
-.faq-list summary {
+.faq-item h3 {
+  margin: 0;
+}
+
+.faq-item button {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 30px;
+  width: 100%;
   min-height: 86px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
   cursor: pointer;
   font-size: 17px;
   font-weight: 520;
-  list-style: none;
 }
-
-.faq-list summary::-webkit-details-marker { display: none; }
 
 .faq-plus {
   position: relative;
@@ -1214,6 +1389,7 @@ svg {
   height: 22px;
   border: 1px solid rgb(255 255 255 / 24%);
   border-radius: 50%;
+  transition: border-color 180ms ease, background 180ms ease;
 }
 
 .faq-plus::before,
@@ -1229,12 +1405,19 @@ svg {
 
 .faq-plus::after {
   transform: rotate(90deg);
-  transition: transform 160ms ease;
 }
 
-details[open] .faq-plus::after { transform: rotate(0); }
+.faq-item button:hover .faq-plus,
+.faq-item.is-open .faq-plus {
+  border-color: rgb(255 119 119 / 65%);
+  background: rgb(255 46 46 / 13%);
+}
 
-.faq-list details > p {
+.faq-answer {
+  overflow: hidden;
+}
+
+.faq-answer p {
   max-width: 600px;
   margin: -4px 52px 28px 0;
   color: #9b9ba2;
@@ -1252,6 +1435,8 @@ details[open] .faq-plus::after { transform: rotate(0); }
     linear-gradient(90deg, rgb(0 0 0 / 88%), rgb(0 0 0 / 35%)),
     repeating-linear-gradient(110deg, #1f1212 0 26px, #381313 26px 52px, #5d1717 52px 78px);
   color: white;
+  background-position: 50% 50%;
+  background-size: auto, 115% 115%;
 }
 
 .final-cta::after {
@@ -1282,6 +1467,10 @@ details[open] .faq-plus::after { transform: rotate(0); }
   max-width: 800px;
   margin-bottom: 35px;
   font-size: clamp(58px, 7vw, 105px);
+}
+
+.final-title-line {
+  width: max-content;
 }
 
 .site-footer {
@@ -1490,7 +1679,11 @@ details[open] .faq-plus::after { transform: rotate(0); }
 
   .workflow-list li {
     grid-template-columns: 38px 1fr;
+    opacity: 1;
+    transform: none;
   }
+
+  .workflow-progress { display: none; }
 
   .step-output { display: none; }
 
@@ -1505,6 +1698,8 @@ details[open] .faq-plus::after { transform: rotate(0); }
   .reference-map { padding: 22px; }
 
   .terminal-body { padding: 19px; font-size: 11px; }
+
+  .final-title-line { width: auto; }
 
   .footer-links {
     grid-template-columns: 1fr 1fr;
@@ -1540,6 +1735,20 @@ details[open] .faq-plus::after { transform: rotate(0); }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
+  .workflow-list li {
+    opacity: 1;
+    transform: none;
+  }
+
+  .orientation-card strong {
+    color: white;
+    transform: none;
+  }
+
+  .workflow-progress {
+    display: none;
+  }
 
   *,
   *::before,
