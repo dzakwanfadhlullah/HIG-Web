@@ -6,15 +6,49 @@ import { MotionExperience } from "@/components/motion-experience";
 const installCommand = "npm install hig-driven && npx hig-driven install";
 
 const principles = [
-  ["Purpose", "Start with the meaningful human outcome, not a visual trend."],
-  ["Agency", "Keep people in control and make mistakes recoverable."],
-  ["Responsibility", "Be transparent, minimize harm, and protect people’s interests."],
-  ["Familiarity", "Use concepts, labels, and behavior people already understand."],
-  ["Flexibility", "Adapt across people, devices, languages, and input methods."],
-  ["Simplicity", "Keep what matters and remove work that does not serve the task."],
-  ["Craft", "Treat typography, states, writing, reliability, and performance as one system."],
-  ["Delight", "Make care felt without letting personality obstruct the task."],
-];
+  {
+    title: "Purpose",
+    body: "Start with the meaningful human outcome, not a visual trend.",
+    icon: "purpose",
+  },
+  {
+    title: "Agency",
+    body: "Keep people in control and make mistakes recoverable.",
+    icon: "agency",
+  },
+  {
+    title: "Responsibility",
+    body: "Be transparent, minimize harm, and protect people’s interests.",
+    icon: "responsibility",
+  },
+  {
+    title: "Familiarity",
+    body: "Use concepts, labels, and behavior people already understand.",
+    icon: "familiarity",
+  },
+  {
+    title: "Flexibility",
+    body: "Adapt across people, devices, languages, and input methods.",
+    icon: "flexibility",
+  },
+  {
+    title: "Simplicity",
+    body: "Keep what matters and remove work that does not serve the task.",
+    icon: "simplicity",
+  },
+  {
+    title: "Craft",
+    body: "Treat typography, states, writing, reliability, and performance as one system.",
+    icon: "craft",
+  },
+  {
+    title: "Delight",
+    body: "Make care felt without letting personality obstruct the task.",
+    icon: "delight",
+  },
+] as const;
+
+type PrincipleIconName = (typeof principles)[number]["icon"];
 
 const modes = [
   {
@@ -92,6 +126,84 @@ function Mark() {
   );
 }
 
+function PrincipleIcon({ name }: { name: PrincipleIconName }) {
+  const commonProps = {
+    "aria-hidden": true,
+    viewBox: "0 0 16 16",
+    shapeRendering: "crispEdges" as const,
+  };
+
+  switch (name) {
+    case "purpose":
+      return (
+        <svg {...commonProps}>
+          <path
+            fillRule="evenodd"
+            d="M7 0h2v2h2v1h2v2h1v2h2v2h-2v2h-1v2h-2v1H9v2H7v-2H5v-1H3v-2H2V9H0V7h2V5h1V3h2V2h2V0Zm0 4H5v1H4v2H3v2h1v2h1v1h2v1h2v-1h2v-1h1V9h1V7h-1V5h-1V4H9V3H7v1Zm0 2h2v1h1v2H9v1H7V9H6V7h1V6Z"
+          />
+          <rect className="icon-accent-fill" x="7" y="7" width="2" height="2" />
+        </svg>
+      );
+    case "agency":
+      return (
+        <svg {...commonProps}>
+          <path d="M1 6h4v1h2v1h2V5h2V3h1V1h4v4h-4V4h-1v2h-1v4h1v2h1v-1h4v4h-4v-2h-1v-1H9V9H7v1H5v1H1V6Zm1 2v1h2V8H2Zm11-5v1h2V3h-2Zm0 10v1h2v-1h-2Z" />
+          <rect className="icon-accent-fill" x="2" y="7" width="2" height="2" />
+        </svg>
+      );
+    case "responsibility":
+      return (
+        <svg {...commonProps}>
+          <path
+            fillRule="evenodd"
+            d="M7 0h2v1h2v1h3v8h-1v2h-2v2H9v2H7v-2H5v-2H3v-2H2V2h3V1h2V0ZM4 4v5h1v2h2v2h2v-1h2v-2h1V4h-2V3H6v1H4Z"
+          />
+          <path className="icon-accent-fill" d="M5 7h2v2h1V8h1V7h2v2h-1v1H9v1H7v-1H6V9H5V7Z" />
+        </svg>
+      );
+    case "familiarity":
+      return (
+        <svg {...commonProps}>
+          <path d="M7 0h2v1h2v2h2v2h2v2h-2v8H9v-5H7v5H3V7H1V5h2V4h1V3h1V2h2V0Zm1 2H7v1H6v1H5v1H4v8h1V8h6v5h1V5h-1V4h-1V3H8V2Z" />
+          <rect className="icon-accent-fill" x="9" y="11" width="2" height="2" />
+        </svg>
+      );
+    case "flexibility":
+      return (
+        <svg {...commonProps}>
+          <path d="M1 1h5v2H4v1H3v2H1V1Zm9 0h5v5h-2V4h-1V3h-2V1ZM1 10h2v2h1v1h2v2H1v-5Zm12 0h2v5h-5v-2h2v-1h1v-2Z" />
+          <rect className="icon-accent-fill" x="7" y="7" width="2" height="2" />
+        </svg>
+      );
+    case "simplicity":
+      return (
+        <svg {...commonProps}>
+          <path d="M1 3h14v2H1V3Zm2 4h10v2H3V7Zm2 4h6v2H5v-2Z" />
+          <rect className="icon-accent-fill" x="12" y="11" width="3" height="2" />
+        </svg>
+      );
+    case "craft":
+      return (
+        <svg {...commonProps}>
+          <path d="M8 0h2v2h1v1h1v1h1v2h1v2h-1v2h-1v2h-1v2H5v-1H3v-2h1V9h1V7h1V5h1V3h1V0Zm1 3v2H8v2H7v2H6v2h4v-2h1V7h1V6h-1V5h-1V3H9Z" />
+          <rect className="icon-accent-fill" x="8" y="6" width="2" height="2" />
+          <path d="M3 13h2v2H1v-2h2Z" />
+        </svg>
+      );
+    case "delight":
+      return (
+        <svg {...commonProps}>
+          <path
+            fillRule="evenodd"
+            d="M5 0h6v1h2v2h2v2h1v6h-1v2h-2v2h-2v1H5v-1H3v-2H1v-2H0V5h1V3h2V1h2V0Zm0 2H4v1H3v1H2v8h1v1h1v1h8v-1h1v-1h1V4h-1V3h-1V2H5Zm-1 8h2v1h1v1h2v-1h1v-1h2v2h-1v1H5v-1H4v-2Z"
+          />
+          <rect className="icon-accent-fill" x="4" y="6" width="2" height="2" />
+          <rect className="icon-accent-fill" x="10" y="6" width="2" height="2" />
+        </svg>
+      );
+  }
+}
+
 export default function Home() {
   return (
     <>
@@ -118,6 +230,18 @@ export default function Home() {
 
       <MotionExperience id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
+          <div className="hero-backdrop" aria-hidden="true">
+            <Image
+              className="hero-backdrop-image"
+              src="/backgroundhero.png"
+              alt=""
+              fill
+              sizes="100vw"
+              loading="eager"
+              fetchPriority="high"
+            />
+            <span className="hero-backdrop-veil" />
+          </div>
           <div className="hero-inner container">
             <a className="announcement" href="#install">
               <span>New</span>
@@ -354,11 +478,11 @@ export default function Home() {
               </p>
             </div>
             <div className="principle-grid">
-              {principles.map(([title, body], index) => (
+              {principles.map(({ title, body, icon }, index) => (
                 <article key={title}>
                   <span className="principle-index">0{index + 1}</span>
                   <div className="principle-icon" aria-hidden="true">
-                    <span />
+                    <PrincipleIcon name={icon} />
                   </div>
                   <h3>{title}</h3>
                   <p>{body}</p>

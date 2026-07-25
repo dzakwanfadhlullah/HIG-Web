@@ -61,6 +61,11 @@ export function MotionExperience({
       });
 
       hero
+        .from(
+          ".hero-backdrop-image",
+          { scale: 1.08, duration: 1.8, ease: "power2.out" },
+          0,
+        )
         .from(".announcement", { autoAlpha: 0, y: 14, duration: 0.45 })
         .from(
           ".hero-title-line",
@@ -125,6 +130,17 @@ export function MotionExperience({
 
       const desktop = gsap.matchMedia();
       desktop.add("(min-width: 761px)", () => {
+        gsap.to(".hero-backdrop-image", {
+          yPercent: 4,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.8,
+          },
+        });
+
         const comparison = gsap.timeline({
           scrollTrigger: {
             trigger: ".spotlight",
